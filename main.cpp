@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 		}
         }
 
-		std::vector<Part> polynomial; // All parts in one array we can loop over
+	std::vector<Part> polynomial; // All parts in one array we can loop over
 
 	int polynomialOrder = argc - comma;
 	
