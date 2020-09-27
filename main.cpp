@@ -8,7 +8,6 @@ int main(int argc, char *argv[])
         int comma; // Ex: | ./a.out 1 2 3 , 4 5 | -> comma is at index 4
 	for ( int i=1;i<argc; i++)
         {
-		std::cout << argv[i] << std::endl;
 		if (*argv[i] == (char)',')
 		{
 			comma = i;
