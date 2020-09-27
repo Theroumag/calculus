@@ -7,7 +7,7 @@
 
 #include <string>
 
-struct PolynomialPart {
+struct Part {
 	float coefficient;
 	float x;
 	float exponent;
@@ -15,16 +15,7 @@ struct PolynomialPart {
 	// Add myPart.result() method
 };
 
-ostream& operator<<(ostream& os, const PolynomialPart& p)
-{
-	if *p.negative = True:
-		return os << "-" << p.coefficient << "*" << " x" << "^" << exponent;
-	else:
-		return os << p.coefficient << "*" << " x" << "^" << exponent;
-}
-
-
-ostream& operator<<(ostream& os, const PolynomialPart& p)
+ostream& operator<<(ostream& os, const Part& p)
 {
 	bool negative = true;
 	if (negative)
@@ -45,14 +36,14 @@ ostream& operator<<(ostream& os, const PolynomialPart& p)
 
 
 
-istream& operator>>(istream& is, PolynomialPart& p)
+istream& operator>>(istream& is, Part& p)
 {
 	// cint >> myPart
 	// Format should be: 
 	// -5x^2
 	
-	// Uh...
+	// Uh... somehow
 
-	// PolynomialPart p { -1.1, 2, 3 };  
+	// Part p { -1.1, 2, 3 };  
 
 }
