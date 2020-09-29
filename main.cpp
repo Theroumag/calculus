@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 
 		if (s.find(' ') == std::string::npos)
 		{
-			double num = std::stof(s);
+			double num = std::stod(s);
 			Part smallernum_part { 1, num, 1 };
 			Part biggernum_part { 1, num, 1 };
 			smallnum_polynomial.push_back(smallernum_part);
@@ -46,8 +46,8 @@ int main(int argc, char *argv[])
 			std::string s_coeff = s.substr(0, delimiter_index); // Go from index 0 to delimiter_index
 			std::string s_exp = s.substr(delimiter_index + 1); // Go from delimiter_index to end of string (implied)
 			
-			coeff = std::stof(s_coeff);
-			exponent = std::stof(s_exp);
+			coeff = std::stod(s_coeff);
+			exponent = std::stod(s_exp);
 
 			Part smallernum_part { coeff, smallerNum, exponent };
 			Part biggernum_part { coeff, biggerNum, exponent };
