@@ -20,10 +20,8 @@ int main(int argc, char *argv[])
 	std::vector<Part> smallnum_polynomial;
 	std::vector<Part> bignum_polynomial;
 	
-	std::string _fN = argv[comma + 1];
-	std::string _sN = argv[comma + 2];
-	double firstNum  = std::stod(_fN);
-	double secondNum = std::stod(_sN);
+	double firstNum  = std::stod( (std::string) argv[comma +1] );
+	double secondNum = std::stod( (std::string) argv[comma +2] );
 	double biggerNum  = ( firstNum > secondNum ) ? firstNum : secondNum;
 	double smallerNum = ( firstNum < secondNum ) ? firstNum : secondNum;
 
