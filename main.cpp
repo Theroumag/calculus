@@ -1,55 +1,81 @@
 #include <iostream>
+#include <string>
 #include <sstream>
 #include <vector>
 #include "part.h"
 
 int main(int argc, char *argv[])
 {
-        int comma; // Ex: | ./a.out 1 2 3 , 4 5 | -> comma is at index 4
+        // Expected input: ./a.out "2 3" "3 4" , 3 4
+
+	int comma;
 	for ( int i=1;i<argc; i++)
         {
 		if (*argv[i] == (char)',')
 		{
-			comma = i;
-			break;
+			comma = i; break;
 		}
-        }
-
-	std::vector<Part> polynomial; // All parts in one array we can loop over
-
-	int polynomialOrder = argc - comma;
+	}
 	
-
-	// -------------- Argument to polynomial parsing -----------------------------
-	float firstNum;
-	float secondNum;
-
-	std::istringstream fN_istream{argv[comma + 1]}; fN_istream >> firstNum;
-	std::istringstream sN_istream{argv[comma + 2]}; sN_istream >> secondNum;
-
-	float biggerNum = ( firstNum > secondNum ) ? firstNum : secondNum;
-	float smallerNum = ( firstNum < secondNum ) ? firstNum : secondNum;
+	std::vector<Part> smallnum_polynomial;
+	std::vector<Part> bignum_polynomial;
 	
-	// ---------------------------------------------------------------------------
+	std::string _fN = argv[comma + 1];
+	std::string _sN = argv[comma + 2];
+	double firstNum  = std::stod(_fN);
+	double secondNum = std::stod(_sN);
+	double biggerNum  = ( firstNum > secondNum ) ? firstNum : secondNum;
+	double smallerNum = ( firstNum < secondNum ) ? firstNum : secondNum;
 
-	float polynomial(sNum, bNum, polynomialOrder){ // sNum is smallerNum, bNum is biggerNum
-	        for  (int i=polynomialOrder; i >= 0; i--)
-	        {
-	                float coefficient;
-	                std::istringstream myStream{argv[i]}; myStream >> coefficient;
+	for ( int i=1; i <= comma - 1; i++)
+        {
+		double coeff;
+		double exponent;
+		std::string s = argv[i];
+
+		if (s.find(' ') == std::string::npos)
+		{
+			double num = std::stof(s);
+			Part smallernum_part { 1, num, 1 };
+			Part biggernum_part { 1, num, 1 };
+			smallnum_polynomial.push_back(smallernum_part);
+			bignum_polynomial.push_back(biggernum_part);
+			continue;
+
+		} else {
+
+			size_t delimiter_index = s.find(" ");
+			std::string s_coeff = s.substr(0, delimiter_index); // Go from index 0 to delimiter_index
+			std::string s_exp = s.substr(delimiter_index + 1); // Go from delimiter_index to end of string (implied)
+			
+			coeff = std::stof(s_coeff);
+			exponent = std::stof(s_exp);
+
+			Part smallernum_part { coeff, smallerNum, exponent };
+			Part biggernum_part { coeff, biggerNum, exponent };
 	
-	                float result = 0.0;
-	                if (i == 0)
-	                {
-	                        result += ( coefficient * sNum ); 
-	                }
-	                else
-	                {
-	                        polynomial += (coefficient * pow(Num, i)) ;
-	                }
-	
-	        }
+			smallnum_polynomial.push_back(smallernum_part);
+			bignum_polynomial.push_back(biggernum_part);
+		}
 	}
 
-        return 0;
+	double sSum = 0; // f(a)
+	double bSum = 0; // f(b)
+	for (Part& part : smallnum_polynomial)
+	{
+		// std::cout << part << '\n';
+		sSum += part.sum();
+	}
+
+	for (Part& part : bignum_polynomial)
+	{
+		// std::cout << part << '\n';
+		bSum += part.sum();
+	}
+	
+	double slope = (bSum - sSum) / (biggerNum - smallerNum);
+	std::cout << "Vavg: " << slope << '\n';
+	
+	return 0;
 }
+
